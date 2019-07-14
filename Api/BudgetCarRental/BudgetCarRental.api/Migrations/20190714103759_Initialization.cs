@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BudgetCarRental.api.Migrations
 {
-    public partial class CompleteDatabaseImplemented : Migration
+    public partial class Initialization : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -17,6 +17,7 @@ namespace BudgetCarRental.api.Migrations
                     Road = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
+                    Country = table.Column<string>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -31,7 +32,6 @@ namespace BudgetCarRental.api.Migrations
                     AppUserId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Email = table.Column<string>(nullable: true),
-                    Role = table.Column<string>(nullable: true),
                     PasswordHash = table.Column<byte[]>(nullable: true),
                     PasswordSalt = table.Column<byte[]>(nullable: true),
                     JoinDate = table.Column<DateTime>(nullable: true)
@@ -62,6 +62,7 @@ namespace BudgetCarRental.api.Migrations
                     PartsId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     PartsCode = table.Column<string>(nullable: true),
+                    PartName = table.Column<string>(nullable: true),
                     Price = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
                 },
                 constraints: table =>
@@ -75,6 +76,7 @@ namespace BudgetCarRental.api.Migrations
                 {
                     PaymentId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
+                    paymentMedia = table.Column<string>(nullable: true),
                     PaymentDate = table.Column<DateTime>(nullable: false),
                     PaidAmount = table.Column<decimal>(type: "decimal(18, 2)", nullable: false)
                 },
@@ -105,7 +107,8 @@ namespace BudgetCarRental.api.Migrations
                         .Annotation("Sqlite:Autoincrement", true),
                     Model = table.Column<string>(nullable: true),
                     RegNo = table.Column<string>(nullable: false),
-                    Type = table.Column<string>(nullable: true)
+                    Type = table.Column<int>(nullable: false),
+                    IsAvailable = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -119,9 +122,8 @@ namespace BudgetCarRental.api.Migrations
                 {
                     CustomerId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UsinqId = table.Column<string>(nullable: true),
                     OrganizationName = table.Column<string>(nullable: true),
-                    CustomerType = table.Column<string>(nullable: true),
+                    CustomerType = table.Column<int>(nullable: false),
                     AppUserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -141,9 +143,12 @@ namespace BudgetCarRental.api.Migrations
                 {
                     DriverId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UsinqId = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
                     InsuranceNumber = table.Column<string>(nullable: true),
                     IsAvailable = table.Column<bool>(nullable: false),
+                    JoinDate = table.Column<DateTime>(nullable: false),
                     AppUserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -163,8 +168,10 @@ namespace BudgetCarRental.api.Migrations
                 {
                     EmployeeId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    UsinqId = table.Column<string>(nullable: true),
-                    DepartmentName = table.Column<string>(nullable: true),
+                    UniqeId = table.Column<string>(nullable: true),
+                    FirstName = table.Column<string>(nullable: true),
+                    LastName = table.Column<string>(nullable: true),
+                    Department = table.Column<int>(nullable: false),
                     IsAvailable = table.Column<bool>(nullable: false),
                     AppUserId = table.Column<int>(nullable: true)
                 },
@@ -184,24 +191,23 @@ namespace BudgetCarRental.api.Migrations
                 columns: table => new
                 {
                     PartsId = table.Column<int>(nullable: false),
-                    PhotoId = table.Column<int>(nullable: false),
-                    PhotoId1 = table.Column<int>(nullable: true)
+                    PhotoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PartsPhotos", x => new { x.PartsId, x.PhotoId });
                     table.ForeignKey(
-                        name: "FK_PartsPhotos_Parts_PhotoId",
-                        column: x => x.PhotoId,
+                        name: "FK_PartsPhotos_Parts_PartsId",
+                        column: x => x.PartsId,
                         principalTable: "Parts",
                         principalColumn: "PartsId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_PartsPhotos_Photos_PhotoId1",
-                        column: x => x.PhotoId1,
+                        name: "FK_PartsPhotos_Photos_PhotoId",
+                        column: x => x.PhotoId,
                         principalTable: "Photos",
                         principalColumn: "PhotoId",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -229,23 +235,22 @@ namespace BudgetCarRental.api.Migrations
                 columns: table => new
                 {
                     VehicleID = table.Column<int>(nullable: false),
-                    PhotoId = table.Column<int>(nullable: false),
-                    PhotoId1 = table.Column<int>(nullable: true)
+                    PhotoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_VehcilePhotos", x => new { x.VehicleID, x.PhotoId });
                     table.ForeignKey(
-                        name: "FK_VehcilePhotos_Vehicles_PhotoId",
+                        name: "FK_VehcilePhotos_Photos_PhotoId",
                         column: x => x.PhotoId,
-                        principalTable: "Vehicles",
-                        principalColumn: "VehicleId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_VehcilePhotos_Photos_PhotoId1",
-                        column: x => x.PhotoId1,
                         principalTable: "Photos",
                         principalColumn: "PhotoId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_VehcilePhotos_Vehicles_VehicleID",
+                        column: x => x.VehicleID,
+                        principalTable: "Vehicles",
+                        principalColumn: "VehicleId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -266,8 +271,8 @@ namespace BudgetCarRental.api.Migrations
                         principalColumn: "AddressId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerAddresses_Customers_AddressId",
-                        column: x => x.AddressId,
+                        name: "FK_CustomerAddresses_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Restrict);
@@ -290,8 +295,8 @@ namespace BudgetCarRental.api.Migrations
                         principalColumn: "ContactId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_CustomerContacts_Customers_ContactId",
-                        column: x => x.ContactId,
+                        name: "FK_CustomerContacts_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Restrict);
@@ -308,8 +313,8 @@ namespace BudgetCarRental.api.Migrations
                 {
                     table.PrimaryKey("PK_CustomerPhotos", x => new { x.PhotoId, x.CustomerId });
                     table.ForeignKey(
-                        name: "FK_CustomerPhotos_Customers_PhotoId",
-                        column: x => x.PhotoId,
+                        name: "FK_CustomerPhotos_Customers_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Restrict);
@@ -359,8 +364,8 @@ namespace BudgetCarRental.api.Migrations
                         principalColumn: "AddressId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DriverAddresses_Drivers_AddressId",
-                        column: x => x.AddressId,
+                        name: "FK_DriverAddresses_Drivers_DriverId",
+                        column: x => x.DriverId,
                         principalTable: "Drivers",
                         principalColumn: "DriverId",
                         onDelete: ReferentialAction.Restrict);
@@ -383,8 +388,8 @@ namespace BudgetCarRental.api.Migrations
                         principalColumn: "ContactId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_DriverContacts_Drivers_ContactId",
-                        column: x => x.ContactId,
+                        name: "FK_DriverContacts_Drivers_DriverId",
+                        column: x => x.DriverId,
                         principalTable: "Drivers",
                         principalColumn: "DriverId",
                         onDelete: ReferentialAction.Restrict);
@@ -401,8 +406,8 @@ namespace BudgetCarRental.api.Migrations
                 {
                     table.PrimaryKey("PK_DriverPayments", x => new { x.PaymentId, x.DriverId });
                     table.ForeignKey(
-                        name: "FK_DriverPayments_Drivers_PaymentId",
-                        column: x => x.PaymentId,
+                        name: "FK_DriverPayments_Drivers_DriverId",
+                        column: x => x.DriverId,
                         principalTable: "Drivers",
                         principalColumn: "DriverId",
                         onDelete: ReferentialAction.Restrict);
@@ -425,8 +430,8 @@ namespace BudgetCarRental.api.Migrations
                 {
                     table.PrimaryKey("PK_DriverPhotos", x => new { x.PhotoId, x.DriverId });
                     table.ForeignKey(
-                        name: "FK_DriverPhotos_Drivers_PhotoId",
-                        column: x => x.PhotoId,
+                        name: "FK_DriverPhotos_Drivers_DriverId",
+                        column: x => x.DriverId,
                         principalTable: "Drivers",
                         principalColumn: "DriverId",
                         onDelete: ReferentialAction.Restrict);
@@ -444,7 +449,7 @@ namespace BudgetCarRental.api.Migrations
                 {
                     RentalArrangementId = table.Column<int>(nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
-                    ArrangementType = table.Column<string>(nullable: true),
+                    ArrangementType = table.Column<int>(nullable: false),
                     StartDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: true),
                     VehicleId = table.Column<int>(nullable: true),
@@ -484,8 +489,8 @@ namespace BudgetCarRental.api.Migrations
                         principalColumn: "AddressId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EmployeeAddresses_Employees_AddressId",
-                        column: x => x.AddressId,
+                        name: "FK_EmployeeAddresses_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Restrict);
@@ -508,8 +513,8 @@ namespace BudgetCarRental.api.Migrations
                         principalColumn: "ContactId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EmployeeContacts_Employees_ContactId",
-                        column: x => x.ContactId,
+                        name: "FK_EmployeeContacts_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Restrict);
@@ -526,8 +531,8 @@ namespace BudgetCarRental.api.Migrations
                 {
                     table.PrimaryKey("PK_EmployeePhotos", x => new { x.PhotoId, x.EmployeeId });
                     table.ForeignKey(
-                        name: "FK_EmployeePhotos_Employees_PhotoId",
-                        column: x => x.PhotoId,
+                        name: "FK_EmployeePhotos_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Restrict);
@@ -550,8 +555,8 @@ namespace BudgetCarRental.api.Migrations
                 {
                     table.PrimaryKey("PK_FleetPayments", x => new { x.PaymentId, x.FleetId });
                     table.ForeignKey(
-                        name: "FK_FleetPayments_Fleets_PaymentId",
-                        column: x => x.PaymentId,
+                        name: "FK_FleetPayments_Fleets_FleetId",
+                        column: x => x.FleetId,
                         principalTable: "Fleets",
                         principalColumn: "FleetId",
                         onDelete: ReferentialAction.Restrict);
@@ -564,7 +569,7 @@ namespace BudgetCarRental.api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "VehicleFleets",
+                name: "VehicleFleet",
                 columns: table => new
                 {
                     FleetId = table.Column<int>(nullable: false),
@@ -572,19 +577,19 @@ namespace BudgetCarRental.api.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleFleets", x => new { x.VehicleId, x.FleetId });
+                    table.PrimaryKey("PK_VehicleFleet", x => new { x.VehicleId, x.FleetId });
                     table.ForeignKey(
-                        name: "FK_VehicleFleets_Fleets_VehicleId",
-                        column: x => x.VehicleId,
+                        name: "FK_VehicleFleet_Fleets_FleetId",
+                        column: x => x.FleetId,
                         principalTable: "Fleets",
                         principalColumn: "FleetId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_VehicleFleets_Vehicles_VehicleId",
+                        name: "FK_VehicleFleet_Vehicles_VehicleId",
                         column: x => x.VehicleId,
                         principalTable: "Vehicles",
                         principalColumn: "VehicleId",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -612,22 +617,23 @@ namespace BudgetCarRental.api.Migrations
                 columns: table => new
                 {
                     PartsId = table.Column<int>(nullable: false),
-                    RepairId = table.Column<int>(nullable: false)
+                    RepairId = table.Column<int>(nullable: false),
+                    Qty = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_PartsForRepairs", x => new { x.PartsId, x.RepairId });
                     table.ForeignKey(
-                        name: "FK_PartsForRepairs_RepairSessions_PartsId",
+                        name: "FK_PartsForRepairs_Parts_PartsId",
                         column: x => x.PartsId,
-                        principalTable: "RepairSessions",
-                        principalColumn: "RepairSessionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_PartsForRepairs_Parts_RepairId",
-                        column: x => x.RepairId,
                         principalTable: "Parts",
                         principalColumn: "PartsId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PartsForRepairs_RepairSessions_RepairId",
+                        column: x => x.RepairId,
+                        principalTable: "RepairSessions",
+                        principalColumn: "RepairSessionId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -642,18 +648,33 @@ namespace BudgetCarRental.api.Migrations
                 {
                     table.PrimaryKey("PK_RepairingEmployees", x => new { x.EmployeeId, x.RepairId });
                     table.ForeignKey(
-                        name: "FK_RepairingEmployees_RepairSessions_EmployeeId",
+                        name: "FK_RepairingEmployees_Employees_EmployeeId",
                         column: x => x.EmployeeId,
-                        principalTable: "RepairSessions",
-                        principalColumn: "RepairSessionId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_RepairingEmployees_Employees_RepairId",
-                        column: x => x.RepairId,
                         principalTable: "Employees",
                         principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_RepairingEmployees_RepairSessions_RepairId",
+                        column: x => x.RepairId,
+                        principalTable: "RepairSessions",
+                        principalColumn: "RepairSessionId",
+                        onDelete: ReferentialAction.Restrict);
                 });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerAddresses_CustomerId",
+                table: "CustomerAddresses",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerContacts_CustomerId",
+                table: "CustomerContacts",
+                column: "CustomerId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CustomerPhotos_CustomerId",
+                table: "CustomerPhotos",
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Customers_AppUserId",
@@ -661,14 +682,54 @@ namespace BudgetCarRental.api.Migrations
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_DriverAddresses_DriverId",
+                table: "DriverAddresses",
+                column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DriverContacts_DriverId",
+                table: "DriverContacts",
+                column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DriverPayments_DriverId",
+                table: "DriverPayments",
+                column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DriverPhotos_DriverId",
+                table: "DriverPhotos",
+                column: "DriverId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Drivers_AppUserId",
                 table: "Drivers",
                 column: "AppUserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EmployeeAddresses_EmployeeId",
+                table: "EmployeeAddresses",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeeContacts_EmployeeId",
+                table: "EmployeeContacts",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_EmployeePhotos_EmployeeId",
+                table: "EmployeePhotos",
+                column: "EmployeeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_AppUserId",
                 table: "Employees",
                 column: "AppUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FleetPayments_FleetId",
+                table: "FleetPayments",
+                column: "FleetId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Fleets_CustomerId",
@@ -684,11 +745,6 @@ namespace BudgetCarRental.api.Migrations
                 name: "IX_PartsPhotos_PhotoId",
                 table: "PartsPhotos",
                 column: "PhotoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PartsPhotos_PhotoId1",
-                table: "PartsPhotos",
-                column: "PhotoId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_RentalArrangements_DriverId",
@@ -721,9 +777,9 @@ namespace BudgetCarRental.api.Migrations
                 column: "PhotoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_VehcilePhotos_PhotoId1",
-                table: "VehcilePhotos",
-                column: "PhotoId1");
+                name: "IX_VehicleFleet_FleetId",
+                table: "VehicleFleet",
+                column: "FleetId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -777,7 +833,7 @@ namespace BudgetCarRental.api.Migrations
                 name: "VehcilePhotos");
 
             migrationBuilder.DropTable(
-                name: "VehicleFleets");
+                name: "VehicleFleet");
 
             migrationBuilder.DropTable(
                 name: "Addresses");
@@ -792,10 +848,10 @@ namespace BudgetCarRental.api.Migrations
                 name: "Parts");
 
             migrationBuilder.DropTable(
-                name: "RepairSessions");
+                name: "Employees");
 
             migrationBuilder.DropTable(
-                name: "Employees");
+                name: "RepairSessions");
 
             migrationBuilder.DropTable(
                 name: "Photos");

@@ -7,6 +7,7 @@ namespace BudgetCarRental.Model.Model
     {
         public int PartsId { get; set; }
         public string PartsCode { get; set; }
+        public string PartName { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }

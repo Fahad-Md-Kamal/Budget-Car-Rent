@@ -5,14 +5,16 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BudgetCarRental.Model.Model
 {
-    public class Employee
+    public class Employee 
     {
         [Key]
-        public int EmployeeId{ get; set; }
-        public string UsinqId { get; set; }
-        public string DepartmentName { get; set; }
+        public int EmployeeId { get; set; }
+        public string UniqeId { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public EnumDepartment Department { get; set; }
         public bool IsAvailable { get; set; }
-        
+
         public AppUser AppUser { get; set; }
 
         public ICollection<EmployeeContact> EmployeeContacts { get; set; }

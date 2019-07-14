@@ -16,6 +16,20 @@
     <Compile Remove="Migrations\20190711205829_Complete Database Implemented.Designer.cs" />
     <Compile Remove="Migrations\20190711214532_Complete Database Implemented.cs" />
     <Compile Remove="Migrations\20190711214532_Complete Database Implemented.Designer.cs" />
+    <Compile Remove="Migrations\20190711215500_Complete Database Implemented.cs" />
+    <Compile Remove="Migrations\20190711215500_Complete Database Implemented.Designer.cs" />
+    <Compile Remove="Migrations\20190714054152_Initialization.cs" />
+    <Compile Remove="Migrations\20190714054152_Initialization.Designer.cs" />
+    <Compile Remove="Migrations\20190714055915_Initialization.cs" />
+    <Compile Remove="Migrations\20190714055915_Initialization.Designer.cs" />
+    <Compile Remove="Migrations\20190714060352_Initialization.cs" />
+    <Compile Remove="Migrations\20190714060352_Initialization.Designer.cs" />
+    <Compile Remove="Migrations\20190714061424_Initialization.cs" />
+    <Compile Remove="Migrations\20190714061424_Initialization.Designer.cs" />
+    <Compile Remove="Migrations\20190714063047_Initialization.cs" />
+    <Compile Remove="Migrations\20190714063047_Initialization.Designer.cs" />
+    <Compile Remove="Migrations\20190714102126_Initialization.cs" />
+    <Compile Remove="Migrations\20190714102126_Initialization.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

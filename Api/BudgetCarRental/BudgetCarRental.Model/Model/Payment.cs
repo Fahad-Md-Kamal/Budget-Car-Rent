@@ -7,6 +7,7 @@ namespace BudgetCarRental.Model.Model
     public class Payment
     {
         public int PaymentId { get; set; }
+        public string paymentMedia { get; set; }
         public DateTime PaymentDate { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]

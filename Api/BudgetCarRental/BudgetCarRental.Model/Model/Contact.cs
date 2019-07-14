@@ -8,7 +8,5 @@ namespace BudgetCarRental.Model.Model
         public string Detail { get; set; }
         public bool IsDeleted { get; set; }
         
-        public ICollection<CustomerContact> CustomerContacts { get; set; }
-        public ICollection<DriverContact> DriverContacts { get; set; }
     }
 }

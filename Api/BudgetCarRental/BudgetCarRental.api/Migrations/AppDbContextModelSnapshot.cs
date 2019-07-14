@@ -23,6 +23,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.Property<string>("City");
 
+                    b.Property<string>("Country");
+
                     b.Property<string>("House");
 
                     b.Property<bool>("IsDeleted");
@@ -48,8 +50,6 @@ namespace BudgetCarRental.api.Migrations
                     b.Property<byte[]>("PasswordHash");
 
                     b.Property<byte[]>("PasswordSalt");
-
-                    b.Property<string>("Role");
 
                     b.HasKey("AppUserId");
 
@@ -77,11 +77,9 @@ namespace BudgetCarRental.api.Migrations
 
                     b.Property<int?>("AppUserId");
 
-                    b.Property<string>("CustomerType");
+                    b.Property<int>("CustomerType");
 
                     b.Property<string>("OrganizationName");
-
-                    b.Property<string>("UsinqId");
 
                     b.HasKey("CustomerId");
 
@@ -98,6 +96,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("AddressId", "CustomerId");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("CustomerAddresses");
                 });
 
@@ -108,6 +108,8 @@ namespace BudgetCarRental.api.Migrations
                     b.Property<int>("CustomerId");
 
                     b.HasKey("ContactId", "CustomerId");
+
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("CustomerContacts");
                 });
@@ -120,6 +122,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("PhotoId", "CustomerId");
 
+                    b.HasIndex("CustomerId");
+
                     b.ToTable("CustomerPhotos");
                 });
 
@@ -130,11 +134,17 @@ namespace BudgetCarRental.api.Migrations
 
                     b.Property<int?>("AppUserId");
 
+                    b.Property<string>("FirstName");
+
                     b.Property<string>("InsuranceNumber");
 
                     b.Property<bool>("IsAvailable");
 
-                    b.Property<string>("UsinqId");
+                    b.Property<DateTime>("JoinDate");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("UniqeId");
 
                     b.HasKey("DriverId");
 
@@ -151,6 +161,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("AddressId", "DriverId");
 
+                    b.HasIndex("DriverId");
+
                     b.ToTable("DriverAddresses");
                 });
 
@@ -161,6 +173,8 @@ namespace BudgetCarRental.api.Migrations
                     b.Property<int>("DriverId");
 
                     b.HasKey("ContactId", "DriverId");
+
+                    b.HasIndex("DriverId");
 
                     b.ToTable("DriverContacts");
                 });
@@ -173,6 +187,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("PaymentId", "DriverId");
 
+                    b.HasIndex("DriverId");
+
                     b.ToTable("DriverPayments");
                 });
 
@@ -184,6 +200,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("PhotoId", "DriverId");
 
+                    b.HasIndex("DriverId");
+
                     b.ToTable("DriverPhotos");
                 });
 
@@ -194,11 +212,15 @@ namespace BudgetCarRental.api.Migrations
 
                     b.Property<int?>("AppUserId");
 
-                    b.Property<string>("DepartmentName");
+                    b.Property<int>("Department");
+
+                    b.Property<string>("FirstName");
 
                     b.Property<bool>("IsAvailable");
 
-                    b.Property<string>("UsinqId");
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("UniqeId");
 
                     b.HasKey("EmployeeId");
 
@@ -215,6 +237,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("AddressId", "EmployeeId");
 
+                    b.HasIndex("EmployeeId");
+
                     b.ToTable("EmployeeAddresses");
                 });
 
@@ -226,6 +250,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("ContactId", "EmployeeId");
 
+                    b.HasIndex("EmployeeId");
+
                     b.ToTable("EmployeeContacts");
                 });
 
@@ -236,6 +262,8 @@ namespace BudgetCarRental.api.Migrations
                     b.Property<int>("EmployeeId");
 
                     b.HasKey("PhotoId", "EmployeeId");
+
+                    b.HasIndex("EmployeeId");
 
                     b.ToTable("EmployeePhotos");
                 });
@@ -266,6 +294,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("PaymentId", "FleetId");
 
+                    b.HasIndex("FleetId");
+
                     b.ToTable("FleetPayments");
                 });
 
@@ -273,6 +303,8 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.Property<int>("PartsId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("PartName");
 
                     b.Property<string>("PartsCode");
 
@@ -290,6 +322,8 @@ namespace BudgetCarRental.api.Migrations
 
                     b.Property<int>("RepairId");
 
+                    b.Property<int>("Qty");
+
                     b.HasKey("PartsId", "RepairId");
 
                     b.HasIndex("RepairId");
@@ -303,13 +337,9 @@ namespace BudgetCarRental.api.Migrations
 
                     b.Property<int>("PhotoId");
 
-                    b.Property<int?>("PhotoId1");
-
                     b.HasKey("PartsId", "PhotoId");
 
                     b.HasIndex("PhotoId");
-
-                    b.HasIndex("PhotoId1");
 
                     b.ToTable("PartsPhotos");
                 });
@@ -323,6 +353,8 @@ namespace BudgetCarRental.api.Migrations
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<DateTime>("PaymentDate");
+
+                    b.Property<string>("paymentMedia");
 
                     b.HasKey("PaymentId");
 
@@ -348,7 +380,7 @@ namespace BudgetCarRental.api.Migrations
                     b.Property<int>("RentalArrangementId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("ArrangementType");
+                    b.Property<int>("ArrangementType");
 
                     b.Property<int?>("DriverId");
 
@@ -401,12 +433,14 @@ namespace BudgetCarRental.api.Migrations
                     b.Property<int>("VehicleId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("IsAvailable");
+
                     b.Property<string>("Model");
 
                     b.Property<string>("RegNo")
                         .IsRequired();
 
-                    b.Property<string>("Type");
+                    b.Property<int>("Type");
 
                     b.HasKey("VehicleId");
 
@@ -439,7 +473,9 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasKey("VehicleId", "FleetId");
 
-                    b.ToTable("VehicleFleets");
+                    b.HasIndex("FleetId");
+
+                    b.ToTable("VehicleFleet");
                 });
 
             modelBuilder.Entity("BudgetCarRental.Model.Model.VehiclePhoto", b =>
@@ -448,13 +484,9 @@ namespace BudgetCarRental.api.Migrations
 
                     b.Property<int>("PhotoId");
 
-                    b.Property<int?>("PhotoId1");
-
                     b.HasKey("VehicleID", "PhotoId");
 
                     b.HasIndex("PhotoId");
-
-                    b.HasIndex("PhotoId1");
 
                     b.ToTable("VehcilePhotos");
                 });
@@ -475,20 +507,20 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasOne("BudgetCarRental.Model.Model.Customer", "Customer")
                         .WithMany("CustomerAddresses")
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BudgetCarRental.Model.Model.CustomerContact", b =>
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Contact", "Contact")
-                        .WithMany("CustomerContacts")
+                        .WithMany()
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BudgetCarRental.Model.Model.Customer", "Customer")
                         .WithMany("CustomerContacts")
-                        .HasForeignKey("ContactId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -496,7 +528,7 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Customer", "Customer")
                         .WithMany("CustomerPhotos")
-                        .HasForeignKey("PhotoId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BudgetCarRental.Model.Model.Photo", "Photo")
@@ -521,20 +553,20 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasOne("BudgetCarRental.Model.Model.Driver", "Driver")
                         .WithMany("DriverAddresses")
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BudgetCarRental.Model.Model.DriverContact", b =>
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Contact", "Contact")
-                        .WithMany("DriverContacts")
+                        .WithMany()
                         .HasForeignKey("ContactId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("BudgetCarRental.Model.Model.Driver", "Driver")
                         .WithMany("DriverContacts")
-                        .HasForeignKey("ContactId")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -542,7 +574,7 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Driver", "Driver")
                         .WithMany("DriverPayments")
-                        .HasForeignKey("PaymentId")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BudgetCarRental.Model.Model.Payment", "Payment")
@@ -555,7 +587,7 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Driver", "Driver")
                         .WithMany("DriverPhotos")
-                        .HasForeignKey("PhotoId")
+                        .HasForeignKey("DriverId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BudgetCarRental.Model.Model.Photo", "Photo")
@@ -580,7 +612,7 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasOne("BudgetCarRental.Model.Model.Employee", "Employee")
                         .WithMany("EmployeeAddresses")
-                        .HasForeignKey("AddressId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -593,7 +625,7 @@ namespace BudgetCarRental.api.Migrations
 
                     b.HasOne("BudgetCarRental.Model.Model.Employee", "Employee")
                         .WithMany("EmployeeContacts")
-                        .HasForeignKey("ContactId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -601,7 +633,7 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Employee", "Employee")
                         .WithMany("EmployeePhotos")
-                        .HasForeignKey("PhotoId")
+                        .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BudgetCarRental.Model.Model.Photo", "Photo")
@@ -613,7 +645,7 @@ namespace BudgetCarRental.api.Migrations
             modelBuilder.Entity("BudgetCarRental.Model.Model.Fleet", b =>
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Customer", "Customer")
-                        .WithMany()
+                        .WithMany("Fleets")
                         .HasForeignKey("CustomerId");
                 });
 
@@ -621,7 +653,7 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Fleet", "Fleet")
                         .WithMany("FleetPayments")
-                        .HasForeignKey("PaymentId")
+                        .HasForeignKey("FleetId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BudgetCarRental.Model.Model.Payment", "Payment")
@@ -632,12 +664,12 @@ namespace BudgetCarRental.api.Migrations
 
             modelBuilder.Entity("BudgetCarRental.Model.Model.PartsForRepair", b =>
                 {
-                    b.HasOne("BudgetCarRental.Model.Model.RepairSession", "RepairSession")
+                    b.HasOne("BudgetCarRental.Model.Model.Parts", "Parts")
                         .WithMany("PartsForRepairs")
                         .HasForeignKey("PartsId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BudgetCarRental.Model.Model.Parts", "Parts")
+                    b.HasOne("BudgetCarRental.Model.Model.RepairSession", "RepairSession")
                         .WithMany("PartsForRepairs")
                         .HasForeignKey("RepairId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -647,12 +679,13 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Parts", "Parts")
                         .WithMany("PartsPhotos")
-                        .HasForeignKey("PhotoId")
+                        .HasForeignKey("PartsId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BudgetCarRental.Model.Model.Photo", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId1");
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BudgetCarRental.Model.Model.RentalArrangement", b =>
@@ -669,18 +702,18 @@ namespace BudgetCarRental.api.Migrations
             modelBuilder.Entity("BudgetCarRental.Model.Model.RepairSession", b =>
                 {
                     b.HasOne("BudgetCarRental.Model.Model.RentalArrangement", "RentalArrangement")
-                        .WithMany()
+                        .WithMany("RepairSessions")
                         .HasForeignKey("RentalArrangementId");
                 });
 
             modelBuilder.Entity("BudgetCarRental.Model.Model.RepairingEmployee", b =>
                 {
-                    b.HasOne("BudgetCarRental.Model.Model.RepairSession", "RepairSession")
+                    b.HasOne("BudgetCarRental.Model.Model.Employee", "Employee")
                         .WithMany("RepairingEmployees")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("BudgetCarRental.Model.Model.Employee", "Employee")
+                    b.HasOne("BudgetCarRental.Model.Model.RepairSession", "RepairSession")
                         .WithMany("RepairingEmployees")
                         .HasForeignKey("RepairId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -697,25 +730,26 @@ namespace BudgetCarRental.api.Migrations
                 {
                     b.HasOne("BudgetCarRental.Model.Model.Fleet", "Fleet")
                         .WithMany("VehicleFleets")
-                        .HasForeignKey("VehicleId")
+                        .HasForeignKey("FleetId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BudgetCarRental.Model.Model.Vehicle", "Vehicle")
                         .WithMany("VehicleFleets")
                         .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BudgetCarRental.Model.Model.VehiclePhoto", b =>
                 {
-                    b.HasOne("BudgetCarRental.Model.Model.Vehicle", "Vehicle")
-                        .WithMany("VehiclePhotos")
-                        .HasForeignKey("PhotoId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("BudgetCarRental.Model.Model.Photo", "Photo")
                         .WithMany()
-                        .HasForeignKey("PhotoId1");
+                        .HasForeignKey("PhotoId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("BudgetCarRental.Model.Model.Vehicle", "Vehicle")
+                        .WithMany("VehiclePhotos")
+                        .HasForeignKey("VehicleID")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

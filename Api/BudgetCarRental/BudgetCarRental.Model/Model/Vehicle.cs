@@ -7,7 +7,8 @@ namespace BudgetCarRental.Model.Model
         public int VehicleId { get; set; }
         public string Model { get; set; }
         public string RegNo { get; set; }
-        public string Type { get; set; }
+        public EnumVehicleType Type { get; set; }
+        public bool IsAvailable { get; set; }
 
         public ICollection<VehicleFleet> VehicleFleets { get; set; }
         public ICollection<VehicleDescription> Descriptions { get; set; }

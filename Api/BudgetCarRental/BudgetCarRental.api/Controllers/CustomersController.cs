@@ -1,6 +1,7 @@
 ﻿using BudgetCarRental.api.Data;
 using BudgetCarRental.Model.Model;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,7 +23,12 @@ namespace BudgetCarRental.api.Controllers
         [HttpGet]
         public ICollection<Customer> GetAllCustomer()
         {
-            return _context.Customers.OrderBy(x => x.CustomerId).ToList();
+            return _context.Customers
+                // .Include(x => x.AppUser)
+                .Include(x => x.CustomerAddresses)
+                .Include(x => x.CustomerContacts)
+                .Include(x => x.CustomerPhotos)
+                .OrderBy(x => x.CustomerId).ToList();
         }
     }
 }

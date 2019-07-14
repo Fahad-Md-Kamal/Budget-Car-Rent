@@ -29,6 +29,7 @@ namespace BudgetCarRental.api
         {
             //services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_Config.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AppDbContext>(x => x.UseSqlite(_Config.GetConnectionString("DefaultConnection")));
+            services.AddTransient<SeedData>();
             services.AddMvc();
 
             //services.AddIdentity<AppUser, IdentityRole>()
@@ -37,13 +38,14 @@ namespace BudgetCarRental.api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, SeedData seeder)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
+            seeder.Seed();
             app.UseMvc();
         }
     }
