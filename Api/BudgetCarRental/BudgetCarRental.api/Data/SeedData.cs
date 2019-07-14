@@ -22,6 +22,9 @@ namespace BudgetCarRental.api.Data
         {
             if (!_context.AppUsers.Any())
             {
+
+               
+
                 var Data = new List<Customer>
                 {
 
@@ -1378,7 +1381,11 @@ namespace BudgetCarRental.api.Data
                 };
                 _context.AddRange(Data);
                 _context.SaveChanges();
+
+                
+
             }
+
         }
 
 

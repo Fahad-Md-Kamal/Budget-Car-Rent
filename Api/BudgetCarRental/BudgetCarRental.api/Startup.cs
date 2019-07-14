@@ -27,14 +27,15 @@ namespace BudgetCarRental.api
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDbContext<AppDbContext>(x => x.UseSqlServer(_Config.GetConnectionString("DefaultConnection")));
             services.AddDbContext<AppDbContext>(x => x.UseSqlite(_Config.GetConnectionString("DefaultConnection")));
             services.AddTransient<SeedData>();
-            services.AddMvc();
+            services.AddMvc()
+                .AddJsonOptions(opt => {
+                            opt.SerializerSettings.ReferenceLoopHandling = 
+                                Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                        });
 
-            //services.AddIdentity<AppUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<AppDbContext>()
-            //    .AddDefaultTokenProviders();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,7 +46,7 @@ namespace BudgetCarRental.api
                 app.UseDeveloperExceptionPage();
             }
 
-            seeder.Seed();
+           // seeder.Seed();
             app.UseMvc();
         }
     }
