@@ -7,9 +7,9 @@ namespace BudgetCarRental.Model.Model
     public class CustomerPhoto
     {
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
         public int PhotoId { get; set; }
-        public Photo Photo { get; set; }
+        public virtual Photo Photo { get; set; }
     }
 }

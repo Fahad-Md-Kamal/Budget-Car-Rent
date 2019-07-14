@@ -12,14 +12,14 @@ namespace BudgetCarRental.Model.Model
         public string UniqeId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public EnumDepartment Department { get; set; }
+        public virtual EnumDepartment Department { get; set; }
         public bool IsAvailable { get; set; }
 
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
 
-        public ICollection<EmployeeContact> EmployeeContacts { get; set; }
-        public ICollection<EmployeeAddress> EmployeeAddresses { get; set; }
-        public ICollection<EmployeePhoto> EmployeePhotos { get; set; }
-        public ICollection<RepairingEmployee> RepairingEmployees { get; set; }
+        public virtual ICollection<EmployeeContact> EmployeeContacts { get; set; }
+        public virtual ICollection<EmployeeAddress> EmployeeAddresses { get; set; }
+        public virtual ICollection<EmployeePhoto> EmployeePhotos { get; set; }
+        public virtual ICollection<RepairingEmployee> RepairingEmployees { get; set; }
     }
 }

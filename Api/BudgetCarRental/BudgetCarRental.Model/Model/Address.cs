@@ -12,7 +12,7 @@ namespace BudgetCarRental.Model.Model
         public string Country { get; set; }
         public bool IsDeleted { get; set; }
 
-        public ICollection<CustomerAddress> CustomerAddresses { get; set; }
-        public ICollection<DriverAddress> DriverAddresses { get; set; }
+        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
+        public virtual ICollection<DriverAddress> DriverAddresses { get; set; }
     }
 }

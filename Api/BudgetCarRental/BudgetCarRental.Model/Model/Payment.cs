@@ -8,12 +8,12 @@ namespace BudgetCarRental.Model.Model
     {
         public int PaymentId { get; set; }
         public string paymentMedia { get; set; }
-        public DateTime PaymentDate { get; set; }
+        public virtual DateTime PaymentDate { get; set; }
 
         [Column(TypeName = "decimal(18, 2)")]
         public decimal PaidAmount { get; set; }
-        
-        public ICollection<FleetPayment> FleetPayments { get; set; }
-        public ICollection<DriverPayment> DriverPayments { get; set; }
+
+        public virtual ICollection<FleetPayment> FleetPayments { get; set; }
+        public virtual ICollection<DriverPayment> DriverPayments { get; set; }
     }
 }

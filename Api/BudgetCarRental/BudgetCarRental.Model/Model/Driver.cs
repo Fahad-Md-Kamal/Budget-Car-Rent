@@ -15,12 +15,12 @@ namespace BudgetCarRental.Model.Model
         public bool IsAvailable { get; set; }
         public DateTime JoinDate { get; set; }
 
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
 
-        public ICollection<DriverAddress> DriverAddresses { get; set; }
-        public ICollection<DriverContact> DriverContacts { get; set; }
-        public ICollection<DriverPayment> DriverPayments { get; set; }
-        public ICollection<DriverPhoto> DriverPhotos { get; set; }
-        public ICollection<RentalArrangement> RentalArrangements { get; set; }
+        public virtual ICollection<DriverAddress> DriverAddresses { get; set; }
+        public virtual ICollection<DriverContact> DriverContacts { get; set; }
+        public virtual ICollection<DriverPayment> DriverPayments { get; set; }
+        public virtual ICollection<DriverPhoto> DriverPhotos { get; set; }
+        public virtual ICollection<RentalArrangement> RentalArrangements { get; set; }
     }
 }

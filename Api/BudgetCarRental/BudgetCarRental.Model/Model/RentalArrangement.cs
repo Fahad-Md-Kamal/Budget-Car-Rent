@@ -6,13 +6,13 @@ namespace BudgetCarRental.Model.Model
     public class RentalArrangement
     {
         public int RentalArrangementId { get; set; }
-        public EnumArrangementType ArrangementType { get; set; }
+        public virtual EnumArrangementType ArrangementType { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime? EndDate { get; set; }
 
-        public Vehicle Vehicle { get; set; }
-        public Driver Driver { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
+        public virtual Driver Driver { get; set; }
 
-        public ICollection<RepairSession> RepairSessions { get; set; }
+        public virtual ICollection<RepairSession> RepairSessions { get; set; }
     }
 }

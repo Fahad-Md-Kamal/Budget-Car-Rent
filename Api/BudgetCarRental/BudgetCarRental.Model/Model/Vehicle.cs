@@ -7,12 +7,12 @@ namespace BudgetCarRental.Model.Model
         public int VehicleId { get; set; }
         public string Model { get; set; }
         public string RegNo { get; set; }
-        public EnumVehicleType Type { get; set; }
+        public virtual EnumVehicleType Type { get; set; }
         public bool IsAvailable { get; set; }
 
-        public ICollection<VehicleFleet> VehicleFleets { get; set; }
-        public ICollection<VehicleDescription> Descriptions { get; set; }
-        public ICollection<RentalArrangement> RentalArrangements { get; set; }
-        public ICollection<VehiclePhoto> VehiclePhotos { get; set; }
+        public virtual ICollection<VehicleFleet> VehicleFleets { get; set; }
+        public virtual ICollection<VehicleDescription> Descriptions { get; set; }
+        public virtual ICollection<RentalArrangement> RentalArrangements { get; set; }
+        public virtual ICollection<VehiclePhoto> VehiclePhotos { get; set; }
     }
 }

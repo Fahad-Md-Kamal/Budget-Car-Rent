@@ -4,6 +4,6 @@ namespace BudgetCarRental.Model.Model
     {
         public int VehicleDescriptionId { get; set; }
         public string Description { get; set; }
-        public Vehicle Vehicle { get; set; }
+        public virtual Vehicle Vehicle { get; set; }
     }
 }

@@ -9,13 +9,13 @@ namespace BudgetCarRental.Model.Model
     {
         public int CustomerId { get; set; }
         public string OrganizationName { get; set; }
-        public EnumCustomerType CustomerType { get; set; }
+        public virtual EnumCustomerType CustomerType { get; set; }
 
-        public AppUser AppUser { get; set; }
+        public virtual AppUser AppUser { get; set; }
 
-        public ICollection<CustomerContact> CustomerContacts { get; set; }
-        public ICollection<CustomerAddress> CustomerAddresses { get; set; }
-        public ICollection<Fleet> Fleets { get; set; }
-        public ICollection<CustomerPhoto> CustomerPhotos { get; set; }
+        public virtual ICollection<CustomerContact> CustomerContacts { get; set; }
+        public virtual ICollection<CustomerAddress> CustomerAddresses { get; set; }
+        public virtual ICollection<Fleet> Fleets { get; set; }
+        public virtual ICollection<CustomerPhoto> CustomerPhotos { get; set; }
     }
 }

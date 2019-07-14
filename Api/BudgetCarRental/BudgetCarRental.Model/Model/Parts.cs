@@ -12,7 +12,7 @@ namespace BudgetCarRental.Model.Model
         [Column(TypeName = "decimal(18, 2)")]
         public decimal Price { get; set; }
 
-        public ICollection<PartsForRepair> PartsForRepairs { get; set; }
-        public ICollection<PartsPhoto> PartsPhotos { get; set; }
+        public virtual ICollection<PartsForRepair> PartsForRepairs { get; set; }
+        public virtual ICollection<PartsPhoto> PartsPhotos { get; set; }
     }
 }

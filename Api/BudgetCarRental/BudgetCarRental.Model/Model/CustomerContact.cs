@@ -3,9 +3,9 @@ namespace BudgetCarRental.Model.Model
     public class CustomerContact
     {
         public int CustomerId { get; set; }
-        public Customer Customer { get; set; }
+        public virtual Customer Customer { get; set; }
 
         public int ContactId { get; set; }
-        public Contact Contact { get; set; }
+        public virtual Contact Contact { get; set; }
     }
 }

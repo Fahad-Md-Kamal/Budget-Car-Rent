@@ -39,6 +39,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BudgetCarRental.Business\BudgetCarRental.Business.csproj" />
     <ProjectReference Include="..\BudgetCarRental.Model\BudgetCarRental.Model.csproj" />
   </ItemGroup>
 
