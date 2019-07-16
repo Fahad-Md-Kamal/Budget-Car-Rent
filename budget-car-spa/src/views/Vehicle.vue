@@ -8,6 +8,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 import VehicleList from '../components/Vehicle/VehicleList.vue';
 import {VehicleViewModel} from '../components/Vehicle/model';
+import { types } from '../store/modules/vehicles/actions';
+import {State, namespace }  from 'vuex-class';
+
+const vehicleModule = namespace('vehiclesStore');
 
 @Component({
   components: {
@@ -16,25 +20,33 @@ import {VehicleViewModel} from '../components/Vehicle/model';
 })
 
 export default class Vehicle extends Vue {
-  private cId: number = 0;
-  private vehicles: VehicleViewModel[] = [
-    {VehicleId: ++this.cId, ModelName: 'Toyota', RegNo: 'S20 UTT', Type: 1, IsAvailable: true},
-    {VehicleId: ++this.cId, ModelName: 'Lamborgini', RegNo: 'L98 LTTT', Type: 1, IsAvailable: true},
-  ];
+  // It resolves the argument and stores the result in vehicles array.
+  @vehicleModule.State('vehicles') private vehicles!: VehicleViewModel[];
+  @vehicleModule.Action('loadVehicles') private loadVehicles!: () => void;
+
+
+
+
+  // private get vehicles(): VehicleViewModel[] {
+  //   return this.$store.state.vehiclesStore.vehicles;
+  // }
+
+  private mounted(): void {
+    //this.$store.dispatch(types.LOAD_VEHICLE); // another way of doing same
+    this.loadVehicles();
+  }
+
 
   private onUpdate(vehicle: VehicleViewModel) {
-    const index = this.vehicles.findIndex( (v) => v.VehicleId === vehicle.VehicleId );
-    this.vehicles = [...this.vehicles.slice( 0, index), vehicle,
-      ...this.vehicles.slice(index + 1, this.vehicles.length)];
+    this.$store.dispatch(types.UPDATE_VEHICLE, vehicle);
   }
 
   private onRemove(vehicleid: number) {
-    this.vehicles = this.vehicles.filter( (v) => v.VehicleId !== vehicleid );
+    this.$store.dispatch(types.REMOVE_VEHICLE, vehicleid);
   }
 
   private onAdd(vehicle: VehicleViewModel) {
-    vehicle.VehicleId = ++this.cId;
-    this.vehicles = [...this.vehicles, vehicle];
+    this.$store.dispatch(types.ADD_VEHICLE, vehicle);
   }
 
 
