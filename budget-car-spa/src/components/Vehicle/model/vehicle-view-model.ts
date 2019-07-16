@@ -4,5 +4,5 @@ export interface VehicleViewModel {
     ModelName: string ;
     RegNo: string;
     Type: number;
-    IsAvailable: number;
+    IsAvailable: boolean;
 }
